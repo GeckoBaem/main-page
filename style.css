@@ -1,0 +1,147 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    --background: #060d23;
+    --instagram: #ff2c8b;
+    --list: #1151ff;
+}
+
+* {
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+    cursor: default;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    height: 100vh;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--background);
+}
+
+#title {
+    position: absolute;
+    margin-top: 55px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title > div {
+    font-family: 'Lobster', sans-serif;
+    font-size: 75px;
+    color: #fff;
+    display: flex;
+
+    animation: tilt-shaking 2s infinite;
+}
+
+#social-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0 5vmax;
+}
+
+.social-button {
+    cursor: pointer;
+    width: 8vmax;
+    height: 8vmax;
+    border: none;
+    border-radius: 50%;
+    outline: 0.5vmax solid #fff;
+    place-items: center;
+    background-color: transparent;
+    transition: all 0.3s;
+}
+
+.social-name {
+    font-size: 1vmax;
+    color: #fff;
+    font-family: 'Pretendard-Regular';
+    font-weight: 400;
+
+    position: relative;
+    top: 10px;
+}
+
+.social-button:hover {
+    outline-offset: 0.3vmax;
+    transition: all 0.3s;
+}
+
+.social-button:hover:nth-child(1) {
+    background: radial-gradient(
+        circle at 30% 107%, 
+        rgba(245,226,115,1) 0%, rgba(245,226,115,1) 5%, 
+        rgba(255,36,36,1) 45%, rgba(255,41,168,1) 60%, 
+        rgba(19,95,255,1) 90%
+        );
+}
+
+.social-button:hover:nth-child(2) {
+    background-color: #fff;
+}
+
+.social-button:hover:nth-child(2) svg {
+    filter: brightness(0) saturate(100%) invert(5%) sepia(22%) saturate(4222%) hue-rotate(203deg) brightness(100%) contrast(101%);
+}
+
+.social-button:hover:nth-child(3) {
+    background-color: var(--list);
+}
+
+@media all and (max-width: 500px){
+    #title > div {
+        font-size: 40px;
+    }
+
+    #social-buttons{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: start;
+        max-width: 50vw;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        gap: 0;
+    }
+
+    .social-button{
+        display: block;
+        min-width: 100%;
+        min-height: 50vw;
+        outline: none;
+        border-radius: 0;
+    }
+
+    .social-button > svg {
+        transform: scale(3);
+    }
+}
+
+@keyframes tilt-shaking {
+    0% { transform: rotate(2deg); }
+    33% { transform: rotate(-2deg); }
+    66% { transform: rotate(-2deg); }
+    100% { transform: rotate(2deg); }
+}
