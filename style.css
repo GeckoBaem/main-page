@@ -5,12 +5,6 @@
     font-style: normal;
 }
 
-:root {
-    --background: #060d23;
-    --instagram: #ff2c8b;
-    --list: #1151ff;
-}
-
 * {
     margin: 0;
     border: 0;
@@ -30,7 +24,13 @@ body {
     align-items: center;
     justify-content: center;
 
-    background-color: var(--background);
+    background: radial-gradient(circle at 30% 107%, #1d1c29, #2a202e, #21232c, #192620);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+#main {
+    z-index: 9999;
 }
 
 #title {
@@ -52,7 +52,7 @@ body {
     color: #fff;
     display: flex;
 
-    animation: tilt-shaking 2s infinite;
+    animation: tilt-shaking 3s infinite;
 }
 
 #social-buttons {
@@ -69,19 +69,41 @@ body {
     border: none;
     border-radius: 50%;
     outline: 0.5vmax solid #fff;
-    place-items: center;
     background-color: transparent;
     transition: all 0.3s;
+    position: relative;
+}
+
+.icon-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .social-name {
-    font-size: 1vmax;
-    color: #fff;
-    font-family: 'Pretendard-Regular';
+    font-size: 2vmax;
+    font-family: 'Acme', sans-serif;
     font-weight: 400;
+    color: #fff;
 
-    position: relative;
-    top: 10px;
+    position: absolute;
+    top: 10vmax;
+    opacity: 0;
+
+    transition: all 0.3s;
+
+    transform: translate(-50%);
+
+    pointer-events: none;
+}
+
+.social-button:hover > label {
+    opacity: 1;
+    animation-name: textMove;
+    animation-duration: 0.3s;
+    animation-direction: alternate;
 }
 
 .social-button:hover {
@@ -107,12 +129,16 @@ body {
 }
 
 .social-button:hover:nth-child(3) {
-    background-color: var(--list);
+    background-color: #1151ff;
 }
 
 @media all and (max-width: 500px){
     #title > div {
         font-size: 40px;
+    }
+
+    body {
+        scroll-snap-type: x mandatory;
     }
 
     #social-buttons{
@@ -123,25 +149,119 @@ body {
         max-width: 50vw;
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
-        gap: 0;
+        gap: 0 2vmax;
+
+        overflow-y: visible;
+    }
+
+    #social-buttons::-webkit-scrollbar {
+        height: 10px;
+    }
+
+    #social-buttons::-webkit-scrollbar-track {
+        background: rgba(0,0,0,0.3);
+        border-radius: 999px;
+        -webkit-opacity: 0;
+    }
+
+    #social-buttons::-webkit-scrollbar-thumb {
+        background: #fff;
+        border-radius: 999px;
     }
 
     .social-button{
-        display: block;
         min-width: 100%;
         min-height: 50vw;
         outline: none;
-        border-radius: 0;
+        border-radius: 10%;
+        scroll-snap-align: start;
+        gap: 100px;
+
+        overflow: visible;
+        box-shadow: 0px 8px 10px 5px rgba(0,0,0,0.3) inset;
+        -webkit-box-shadow: 0px 8px 10px 5px rgba(0,0,0,0.3) inset;
+        -moz-box-shadow: 0px 8px 10px 5px rgba(0,0,0,0.3) inset;
     }
 
-    .social-button > svg {
+    .social-button:hover{
+        background-color: none;
+    }
+
+    .icon-center > svg {
         transform: scale(3);
+    }
+
+    .social-name {
+        display: none;
+    }
+
+    .social-button:nth-child(1) {
+        background: radial-gradient(
+        circle at 30% 107%, 
+        rgba(245,226,115,1) 0%, rgba(245,226,115,1) 5%, 
+        rgba(255,36,36,1) 45%, rgba(255,41,168,1) 60%, 
+        rgba(19,95,255,1) 90%
+        );
+    }
+    .social-button:nth-child(2) {
+        background-color: #fff;
+    }
+
+    .social-button:nth-child(2) svg {
+        filter: brightness(0) saturate(100%) invert(5%) sepia(22%) saturate(4222%) hue-rotate(203deg) brightness(100%) contrast(101%);
+    }
+
+    .social-button:nth-child(3) {
+        background-color: #1151ff;
     }
 }
 
 @keyframes tilt-shaking {
-    0% { transform: rotate(2deg); }
-    33% { transform: rotate(-2deg); }
-    66% { transform: rotate(-2deg); }
-    100% { transform: rotate(2deg); }
+    0% { transform: rotate(0deg); }
+    5% {transform: translateY(-7px);}
+    15% {transform: translateY(-7px);}
+    20% { transform: rotate(-2deg) translateY(-7px); }
+    30% { transform: rotate(2deg) translateY(-7px); }
+    40% { transform: rotate(2deg) translateY(-7px); }
+    57% { transform: rotate(0deg); }
+}
+
+
+@keyframes gradient {
+    0% {
+        background-position: top left;
+        transform: rotate(0deg);
+    }
+    25% {
+        background-position: top right;
+    }
+
+    50% {
+        background-position: bottom right;
+}
+
+    75% {
+        background-position: bottom left;
+    }
+
+    110% {
+        background-position: top left;
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes textMove {
+    0% {
+        opacity: 0;
+        transform: translate(-50%) translateY(-2vmax);
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%);
+    }
 }
